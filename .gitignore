@@ -1,0 +1,11 @@
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
+.idea/
+.vs/
+.vscode/
+*.iml
+*.sln
+*.slnx
+CMakeLists.txt
