@@ -6,6 +6,9 @@ public class EditorStandaloneWindow : ModuleRules
 {
 	public EditorStandaloneWindow(ReadOnlyTargetRules Target) : base(Target)
 	{
+
+	    bEnableExceptions = true;
+
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
 		PublicIncludePaths.AddRange(
@@ -44,6 +47,9 @@ public class EditorStandaloneWindow : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"NarrativeCore",
+				"GraphEditor",
+                "UnrealEd",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
