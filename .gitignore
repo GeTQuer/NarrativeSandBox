@@ -8,4 +8,4 @@ DerivedDataCache/
 *.iml
 *.sln
 *.slnx
-CMakeLists.txt
+CMakeLists.txtcompile_commands.json
