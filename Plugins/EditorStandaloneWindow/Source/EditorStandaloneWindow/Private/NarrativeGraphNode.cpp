@@ -3,6 +3,14 @@
 //
 
 #include "NarrativeGraphNode.h"
+#include "SNarrativeGraphNode.h"
+
+TSharedPtr<SGraphNode>
+UNarrativeGraphNode::CreateVisualWidget()
+{
+	return SNew(SNarrativeGraphNode, this);
+}
+
 
 FText UNarrativeGraphNode::GetNodeTitle(
     ENodeTitleType::Type TitleType
@@ -30,10 +38,35 @@ void UNarrativeGraphNode::AllocateDefaultPins()
         TEXT("Narrative"),
         TEXT("In")
     );
-    CreatePin(
-        EGPD_Output,
-        TEXT("Narrative"),
-        TEXT("Out")
-    );
+
+	switch(NodeType){
+		case ENarrativeNodeType::Dialogue:{
+		    CreatePin(
+                EGPD_Output,
+                TEXT("Narrative"),
+                TEXT("Out")
+            );
+		    break;
+		}case ENarrativeNodeType::Choice: {
+
+			for (int32 i = 0; i < Choices.Num(); ++i)
+			{
+				const FName PinName(
+					*FString::Printf(TEXT("Choice_%d"), i)
+				);
+
+				UEdGraphPin* Pin = CreatePin(
+					EGPD_Output,
+					TEXT("Narrative"),
+					PinName
+				);
+
+				Pin->PinFriendlyName = FText::FromString(Choices[i].Title);
+			}break;
+		}case ENarrativeNodeType::End: {
+			break;
+		}
+	}
+
     
 }

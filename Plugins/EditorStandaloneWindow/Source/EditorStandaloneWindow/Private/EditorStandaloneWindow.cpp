@@ -5,7 +5,7 @@
 #include "EditorStandaloneWindowCommands.h"
 #include "LevelEditor.h"
 #include "Widgets/Docking/SDockTab.h"
-#include "Widgets/Layout/SBox.h"
+
 #include "Widgets/Text/STextBlock.h"
 #include "ToolMenus.h"
 #include "DesktopPlatformModule.h"
@@ -20,6 +20,7 @@
 
 #include "narrative/NarrativeEngine.hpp"
 #include "narrative/StoryLoader.hpp"
+#include "narrative/StoryValidator.hpp"
 #include "GraphEditor.h"
 #include "EdGraph/EdGraph.h"
 #include "EdGraph/EdGraphSchema.h"
@@ -28,6 +29,7 @@
 #include "NarrativeGraphSchema.h"
 #include <variant>
 #include <type_traits>
+#include <Serialization/JsonTypes.h>
 
 static const FName EditorStandaloneWindowTabName("EditorStandaloneWindow");
 
@@ -191,6 +193,7 @@ FReply FEditorStandaloneWindowModule::OnLoadJsonClicked()
 
 			const std::string JsonPath = TCHAR_TO_UTF8(*AbsolutePath);
 
+
 			try
 			{
 				narrative::NarrativeEngine Engine;
@@ -206,16 +209,18 @@ FReply FEditorStandaloneWindowModule::OnLoadJsonClicked()
 						TEXT("Editor graph is null"));
 					return FReply::Handled();
 				}
-				// Удаляем узлы предыдущей загрузки.
-				// Копия массива нужна, потому что RemoveNode изменяет Graph->Nodes.
-				TArray<UEdGraphNode*> OldNodes;
 
-				for (UEdGraphNode* OldNode : Graph->Nodes) {
-					OldNodes.Add(OldNode);
-				}
 
-				for (UEdGraphNode * OldNode : OldNodes) {
-					Graph->RemoveNode(OldNode);
+				/*
+				*Удаляем узлы предыдущей загрузки.
+				Копия массива нужна, потому что RemoveNode изменяет Graph->Nodes.
+				!!! Не создаем объекты, лишь ссылки через которые удалим !!!
+				 */
+				TArray<UEdGraphNode*> OldNodes = Graph->Nodes;
+
+				for (UEdGraphNode* Node : OldNodes)
+				{
+					Graph->RemoveNode(Node);
 				}
 
 				TMap<FString, UNarrativeGraphNode*> NodeMap;
@@ -231,8 +236,8 @@ FReply FEditorStandaloneWindowModule::OnLoadJsonClicked()
 					if (const auto* Dialogue = std::get_if<narrative::DialogueNode>(&StoryNode))
 					{
 						Node->NodeType = ENarrativeNodeType::Dialogue;
-						Node->Speaker = UTF8_TO_TCHAR(Dialogue->speaker.c_str());
-						Node->DialogueText = UTF8_TO_TCHAR(Dialogue->text.c_str());
+						Node->Speaker = FString("Speaker: ") + UTF8_TO_TCHAR(Dialogue->speaker.c_str());
+						Node->DialogueText = FString("Text: ") + UTF8_TO_TCHAR(Dialogue->text.c_str());
 					}
 					else if (const auto* ChoiceNode = std::get_if<narrative::ChoiceNode>(&StoryNode))
 					{
@@ -242,7 +247,7 @@ FReply FEditorStandaloneWindowModule::OnLoadJsonClicked()
 						{
 							FNarrativeChoice UnrealChoice;
 							
-							UnrealChoice.Title = UTF8_TO_TCHAR(Choice.text.c_str());
+							UnrealChoice.Title = FString("Text: ") + UTF8_TO_TCHAR(Choice.text.c_str());
 							UnrealChoice.NextNodeId = UTF8_TO_TCHAR(Choice.next.c_str());
 							Node->Choices.Add(UnrealChoice);
 						}
@@ -267,50 +272,78 @@ FReply FEditorStandaloneWindowModule::OnLoadJsonClicked()
 
 				int32 Connections = 0;
 
-				for (const auto& [Id,StoryNode]: Engine.getNodes()) {
-					const auto* Dialogue = std::get_if<narrative::DialogueNode>(&StoryNode);
-					if (!Dialogue) {
-						continue;
-					}
-					const FString SourceId = UTF8_TO_TCHAR(Id.c_str());
-					const FString TargetId = UTF8_TO_TCHAR(Dialogue->next.c_str());
-
+				/*
+				 * Для соединения узлов
+				 * Source - текущий узел
+				 * Target - следующий
+				 */
+				auto ConnectNodes = [&](const FString& SourceId,
+						const FString& TargetId,
+						const FName& OutputPinName)
+				{
 					UNarrativeGraphNode** Source = NodeMap.Find(SourceId);
 					UNarrativeGraphNode** Target = NodeMap.Find(TargetId);
 
-					if (!Source || !Target) {
-						UE_LOG(
-							LogTemp,
-							Warning,
+					if (!Source || !Target)
+					{
+						UE_LOG(LogTemp, Warning,
 							TEXT("Missing graph node: %s -> %s"),
-							*SourceId,
-							*TargetId
-						);
-						continue;
+							*SourceId, *TargetId);
+						return;
 					}
-					UEdGraphPin* OutputPin = (*Source)->FindPin(TEXT("Out"));
+
+					UEdGraphPin* OutputPin = (*Source)->FindPin(OutputPinName);
 					UEdGraphPin* InputPin = (*Target)->FindPin(TEXT("In"));
+
 					if (!OutputPin || !InputPin)
 					{
-						UE_LOG(
-							LogTemp,
-							Error,
-							TEXT("Missing pins for %s -> %s"),
-							*SourceId,
-							*TargetId
-						);
-						continue;
+						UE_LOG(LogTemp, Warning,
+							TEXT("Missing pins: %s -> %s"),
+							*SourceId, *TargetId);
+						return;
 					}
-					
+
 					if (Graph->GetSchema()->TryCreateConnection(
 						OutputPin, InputPin))
 					{
 						++Connections;
 					}
-					Graph->NotifyGraphChanged();
+				};
 
+				for (const auto& [Id, StoryNode] : Engine.getNodes())
+				{
+					const FString SourceId = UTF8_TO_TCHAR(Id.c_str());
 
+					if (const auto* Dialogue =
+						std::get_if<narrative::DialogueNode>(&StoryNode))
+					{
+						const FString TargetId =
+							UTF8_TO_TCHAR(Dialogue->next.c_str());
+
+						ConnectNodes(SourceId, TargetId, TEXT("Out"));
+					}
+					else if (const auto* ChoiceNode =
+						std::get_if<narrative::ChoiceNode>(&StoryNode))
+					{
+						for (int32 i = 0;
+							 i < static_cast<int32>(ChoiceNode->choices.size());
+							 ++i)
+						{
+							const auto& Choice = ChoiceNode->choices[i];
+
+							const FString TargetId =
+								UTF8_TO_TCHAR(Choice.next.c_str());
+
+							const FName OutputPinName(
+								*FString::Printf(TEXT("Choice_%d"), i)
+							);
+
+							ConnectNodes(SourceId, TargetId, OutputPinName);
+						}
+					}
 				}
+
+				Graph->NotifyGraphChanged();
 
 				UE_LOG(
 					LogTemp,
@@ -326,7 +359,7 @@ FReply FEditorStandaloneWindowModule::OnLoadJsonClicked()
 				UE_LOG(
 					LogTemp,
 					Error,
-					TEXT("Narrative load failed: %s"),
+					TEXT("Story loading/validation failed: %s"),
 					UTF8_TO_TCHAR(Error.what())
 				);
 			}

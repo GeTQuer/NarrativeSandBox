@@ -1,0 +1,62 @@
+[
+	{
+		"file": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Intermediate/Build/Win64/x64/UnrealEditor/Development/NarrativeSandBox/PerModuleInline.gen.cpp",
+		"command": "\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe\" @\"C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Intermediate/Build/Win64/x64/UnrealEditor/Development/NarrativeSandBox/PerModuleInline.gen.cpp.obj.rsp\" ",
+		"directory": "C:/Program Files/Epic Games/UE_5.8/Engine/Source",
+		"output": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Intermediate/Build/Win64/x64/UnrealEditor/Development/NarrativeSandBox/PerModuleInline.gen.cpp.obj"
+	},
+	{
+		"file": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/Module.EditorStandaloneWindow.gen.cpp",
+		"command": "\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe\" @\"C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/Module.EditorStandaloneWindow.gen.cpp.obj.rsp\" ",
+		"directory": "C:/Program Files/Epic Games/UE_5.8/Engine/Source",
+		"output": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/Module.EditorStandaloneWindow.gen.cpp.obj"
+	},
+	{
+		"file": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/PerModuleInline.gen.cpp",
+		"command": "\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe\" @\"C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/PerModuleInline.gen.cpp.obj.rsp\" ",
+		"directory": "C:/Program Files/Epic Games/UE_5.8/Engine/Source",
+		"output": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/PerModuleInline.gen.cpp.obj"
+	},
+	{
+		"file": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Source/EditorStandaloneWindow/Private/EditorStandaloneWindow.cpp",
+		"command": "\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe\" @\"C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/EditorStandaloneWindow.cpp.obj.rsp\" ",
+		"directory": "C:/Program Files/Epic Games/UE_5.8/Engine/Source",
+		"output": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/EditorStandaloneWindow.cpp.obj"
+	},
+	{
+		"file": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Source/EditorStandaloneWindow/Private/EditorStandaloneWindowCommands.cpp",
+		"command": "\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe\" @\"C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/EditorStandaloneWindowCommands.cpp.obj.rsp\" ",
+		"directory": "C:/Program Files/Epic Games/UE_5.8/Engine/Source",
+		"output": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/EditorStandaloneWindowCommands.cpp.obj"
+	},
+	{
+		"file": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Source/EditorStandaloneWindow/Private/EditorStandaloneWindowStyle.cpp",
+		"command": "\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe\" @\"C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/EditorStandaloneWindowStyle.cpp.obj.rsp\" ",
+		"directory": "C:/Program Files/Epic Games/UE_5.8/Engine/Source",
+		"output": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/EditorStandaloneWindowStyle.cpp.obj"
+	},
+	{
+		"file": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Source/EditorStandaloneWindow/Private/NarrativeGraphNode.cpp",
+		"command": "\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe\" @\"C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/NarrativeGraphNode.cpp.obj.rsp\" ",
+		"directory": "C:/Program Files/Epic Games/UE_5.8/Engine/Source",
+		"output": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/NarrativeGraphNode.cpp.obj"
+	},
+	{
+		"file": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Source/EditorStandaloneWindow/Private/NarrativeGraphSchema.cpp",
+		"command": "\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe\" @\"C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/NarrativeGraphSchema.cpp.obj.rsp\" ",
+		"directory": "C:/Program Files/Epic Games/UE_5.8/Engine/Source",
+		"output": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/NarrativeGraphSchema.cpp.obj"
+	},
+	{
+		"file": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Source/EditorStandaloneWindow/Private/SNarrativeGraphNode.cpp",
+		"command": "\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe\" @\"C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/SNarrativeGraphNode.cpp.obj.rsp\" ",
+		"directory": "C:/Program Files/Epic Games/UE_5.8/Engine/Source",
+		"output": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Plugins/EditorStandaloneWindow/Intermediate/Build/Win64/x64/UnrealEditor/Development/EditorStandaloneWindow/SNarrativeGraphNode.cpp.obj"
+	},
+	{
+		"file": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Source/NarrativeSandBox/NarrativeSandBox.cpp",
+		"command": "\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe\" @\"C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Intermediate/Build/Win64/x64/UnrealEditor/Development/NarrativeSandBox/NarrativeSandBox.cpp.obj.rsp\" ",
+		"directory": "C:/Program Files/Epic Games/UE_5.8/Engine/Source",
+		"output": "C:/Users/maxim_main/CLionProjects/NarrativeSandBox/Intermediate/Build/Win64/x64/UnrealEditor/Development/NarrativeSandBox/NarrativeSandBox.cpp.obj"
+	}
+]

@@ -4,7 +4,6 @@
 #include "EdGraph/EdGraphNode.h"
 #include "NarrativeGraphNode.generated.h"
 
-
 USTRUCT()
 struct FNarrativeChoice
 {
@@ -49,4 +48,7 @@ public:
     
     UPROPERTY()
     TArray<FNarrativeChoice> Choices;
+
+    virtual TSharedPtr<SGraphNode> CreateVisualWidget() override;
+
 };
