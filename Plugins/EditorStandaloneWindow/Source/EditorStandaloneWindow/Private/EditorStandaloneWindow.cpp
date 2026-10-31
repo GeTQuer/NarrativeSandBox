@@ -119,6 +119,16 @@ TSharedRef<SDockTab> FEditorStandaloneWindowModule::OnSpawnPluginTab(const FSpaw
 					this,
 					&FEditorStandaloneWindowModule::OnLoadJsonClicked
 				)
+			]+ SVerticalBox::Slot()
+			.AutoHeight()
+			.Padding(4.0f)
+			[
+				SNew(STextBlock)
+				.Text_Lambda([this]()
+				{
+					return ValidationStatus;
+				})
+				.AutoWrapText(true)
 			]
 
 		];
@@ -199,6 +209,10 @@ FReply FEditorStandaloneWindowModule::OnLoadJsonClicked()
 				narrative::NarrativeEngine Engine;
 
 				narrative::StoryLoader::load(JsonPath, Engine);
+
+				ValidationStatus = FText::FromString(
+					TEXT("Story loaded and validated successfully")
+				);
 
 				UEdGraph* Graph = EditorGraph.Get();
 
@@ -354,14 +368,17 @@ FReply FEditorStandaloneWindowModule::OnLoadJsonClicked()
 				);
 
 			}
-			catch (const std::exception& Error)
+			catch (const std::exception& Ex)
 			{
-				UE_LOG(
-					LogTemp,
-					Error,
-					TEXT("Story loading/validation failed: %s"),
-					UTF8_TO_TCHAR(Error.what())
+				ValidationStatus = FText::FromString(
+					UTF8_TO_TCHAR(Ex.what())
 				);
+
+				UE_LOG(LogTemp, Error,
+					TEXT("Narrative load failed: %s"),
+					UTF8_TO_TCHAR(Ex.what()));
+
+				return FReply::Handled();
 			}
 		}
 	}

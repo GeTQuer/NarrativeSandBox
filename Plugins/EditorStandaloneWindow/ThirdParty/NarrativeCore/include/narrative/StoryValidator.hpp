@@ -11,7 +11,7 @@ using namespace std;
 namespace narrative {
     class StoryValidator {
     public:
-        static void validate(const NarrativeEngine &engine, const NodeId& startId);
+        static vector<std::string> validate(const NarrativeEngine &engine, const NodeId& startId);
     private:
         static void dfs(const string& currentId,const unordered_map<NodeId, Node>& nodes_, unordered_set<NodeId>& visited);
     };
